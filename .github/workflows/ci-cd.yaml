@@ -1,5 +1,5 @@
 name: Build and Deploy to EKS
-###
+
 on:
   push:
     branches:
@@ -54,6 +54,10 @@ jobs:
         run: |
           curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
-      - name: Deploy To EKS via Helm
+      - name: Uninstall App
         run: |
-           helm upgrade --install web-app ./web-app --namespace config --set image.tag="$VERSION" -f ./web-app/values.yaml
+          helm uninstall web-app --namespace config
+
+#      - name: Deploy To EKS via Helm
+#        run: |
+#           helm upgrade --install web-app ./web-app --namespace config --set image.tag="$VERSION" -f ./web-app/values.yaml
